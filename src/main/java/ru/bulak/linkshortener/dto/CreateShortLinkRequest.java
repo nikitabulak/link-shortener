@@ -15,5 +15,5 @@ public class CreateShortLinkRequest {
     private String link;
     private ZonedDateTime endTime;
     private String description;
-    private Boolean isActive;
+    private Boolean active;
 }
