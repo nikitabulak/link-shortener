@@ -5,14 +5,17 @@ plugins {
     id("io.freefair.lombok") version "8.6"
 }
 
-group = 'ru.panyukovnn'
+group = 'ru.bulak'
 version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation 'org.apache.commons:commons-lang3:3.0'
+    implementation 'ru.bulak:logging-starter-maven:1.0'
+    implementation 'ru.bulak:logging-starter-gradle:1.0'
 }

@@ -1,14 +1,17 @@
 package ru.bulak.linkshortener.repository.impl;
 
+import org.springframework.stereotype.Repository;
 import ru.bulak.linkshortener.model.LinkInfo;
 import ru.bulak.linkshortener.repository.LinkInfoRepository;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Repository
 public class LinkInfoRepositoryImpl implements LinkInfoRepository {
-    private final ConcurrentHashMap<String, LinkInfo> linkInfoConcurrentHashMap = new ConcurrentHashMap<>();
+    private final Map<String, LinkInfo> linkInfoConcurrentHashMap = new ConcurrentHashMap<>();
 
     @Override
     public Optional<LinkInfo> findByShortLink(String shortLink) {
