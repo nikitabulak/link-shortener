@@ -1,2 +1,3 @@
-link-shortener:
-  short-link-length: 8
+spring:
+  profiles:
+    active: dev

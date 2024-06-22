@@ -1,0 +1,7 @@
+link-shortener:
+  short-link-length: 8
+  enable-log-exec-time: true
+
+spring:
+  main:
+    banner-mode: off

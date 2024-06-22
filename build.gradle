@@ -18,4 +18,6 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.0'
     implementation 'ru.bulak:logging-starter-maven:1.0'
     implementation 'ru.bulak:logging-starter-gradle:1.0'
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
 }
