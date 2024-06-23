@@ -60,7 +60,7 @@ public class LogExecutionTimeBeanPostProcessor implements BeanPostProcessor {
                     throw e.getCause();
                 } finally {
                     stopWatch.stop();
-                    log.info("Время выполнения метода '{}' : {} мс", method.getName(), stopWatch.getTotalTimeMillis());
+                    log.info("Время выполнения метода '{}' : {} нс", method.getName(), stopWatch.getTotalTimeNanos());
                 }
             }
             try {
