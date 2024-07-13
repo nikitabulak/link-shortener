@@ -18,7 +18,7 @@ public class LoggingFilter extends HttpFilter {
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         log.info("Запрос: {} {}", request.getMethod(), request.getRequestURI());
-        
+
         ContentCachingResponseWrapper responseWrapper = new ContentCachingResponseWrapper(response);
         try {
             chain.doFilter(request, responseWrapper);

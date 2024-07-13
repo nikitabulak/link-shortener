@@ -19,4 +19,5 @@ public class FilterLinkInfoRequest {
     private ZonedDateTime endTimeTo;
     private String descriptionPart;
     private Boolean active;
+    private PageableRequest page;
 }
