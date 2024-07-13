@@ -1,3 +1,17 @@
 spring:
   profiles:
     active: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5433/mentoring
+    username: dev
+    password: Ab123456
+    hikari:
+      schema: link_shortener
+      connection-init-sql: CREATE SCHEMA IF NOT EXISTS ${spring.datasource.hikari.schema};
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/changelog-master.yml
+  jpa:
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate

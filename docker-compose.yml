@@ -1,0 +1,17 @@
+version: '3.3'
+
+volumes:
+  postgres_volume:
+
+services:
+  postgres-mentoring:
+    image: postgres:latest
+    container_name: postgres-mentoring
+    ports:
+        - 5433:5432
+    environment:
+      POSTGRES_DB: mentoring
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: Ab123456
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data

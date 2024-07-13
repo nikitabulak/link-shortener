@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import ru.bulak.linkshortener.beanpostprocessor.LogExecutionTime;
 import ru.bulak.linkshortener.dto.CreateShortLinkRequest;
-import ru.bulak.linkshortener.dto.CreateShortLinkResponse;
+import ru.bulak.linkshortener.dto.FilterLinkInfoRequest;
+import ru.bulak.linkshortener.dto.LinkInfoResponse;
+import ru.bulak.linkshortener.dto.UpdateShortLinkRequest;
 import ru.bulak.linkshortener.exception.NotFoundException;
 import ru.bulak.linkshortener.mapper.LinkInfoMapper;
 import ru.bulak.linkshortener.model.LinkInfo;
@@ -29,35 +31,69 @@ public class LinkInfoServiceImpl implements LinkInfoService {
 
     @Override
     @LogExecutionTime
-    public CreateShortLinkResponse createLinkInfo(CreateShortLinkRequest createShortLinkRequest) {
+    public LinkInfoResponse createLinkInfo(CreateShortLinkRequest createShortLinkRequest) {
         LinkInfo linkInfo = linkInfoMapper.fromCreateRequest(createShortLinkRequest);
         linkInfo.setShortLink(RandomStringUtils.randomAlphanumeric(linkShortenerProperty.getShortLinkLength()));
         linkInfo.setOpeningCount(0L);
 
-        linkInfoRepository.saveShortLink(linkInfo);
+        linkInfoRepository.save(linkInfo);
 
         return linkInfoMapper.toResponse(linkInfo);
     }
 
     @Override
-    @LogExecutionTime
-    public String getByShortLink(String shortLink) {
-        return linkInfoRepository.findByShortLink(shortLink)
-                .orElseThrow(() -> new NotFoundException("Link not found"))
-                .getLink();
+    public LinkInfoResponse updateLinkInfo(UpdateShortLinkRequest updateShortLinkRequest) {
+        LinkInfo existingLinkInfo = linkInfoRepository.findByIdAndActiveTrue(updateShortLinkRequest.getId())
+                .orElseThrow(() -> new NotFoundException("Link not found"));
+        LinkInfo newLinkInfo = linkInfoMapper.fromUpdateRequest(updateShortLinkRequest);
+
+        existingLinkInfo.setLink(newLinkInfo.getLink());
+        existingLinkInfo.setEndTime(newLinkInfo.getEndTime());
+        existingLinkInfo.setDescription(newLinkInfo.getDescription());
+        existingLinkInfo.setActive(newLinkInfo.getActive());
+        existingLinkInfo.setShortLink(RandomStringUtils.randomAlphanumeric(linkShortenerProperty.getShortLinkLength()));
+        existingLinkInfo.setOpeningCount(0L);
+
+        linkInfoRepository.save(existingLinkInfo);
+
+        return linkInfoMapper.toResponse(existingLinkInfo);
     }
 
     @Override
     @LogExecutionTime
-    public List<CreateShortLinkResponse> getAllShortLinks() {
+    public LinkInfo getByShortLink(String shortLink) {
+        LinkInfo linkInfo = linkInfoRepository.findByShortLinkAndActiveTrue(shortLink)
+                .orElseThrow(() -> new NotFoundException("Link not found"));
+
+        linkInfoRepository.incrementOpeningCountByShortLink(shortLink);
+
+        return linkInfo;
+    }
+
+    @Override
+    @LogExecutionTime
+    public List<LinkInfoResponse> getAllShortLinks() {
         return linkInfoRepository.findAll().stream()
                 .map(linkInfoMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
     @Override
+    public List<LinkInfoResponse> findByFilter(FilterLinkInfoRequest filterRequest) {
+        return linkInfoRepository.findByFilter(
+                        filterRequest.getLinkPart(),
+                        filterRequest.getEndTimeFrom(),
+                        filterRequest.getEndTimeTo(),
+                        filterRequest.getDescriptionPart(),
+                        filterRequest.getActive()).stream()
+                .map(linkInfoMapper::toResponse)
+                .toList();
+    }
+
+    @Override
     @LogExecutionTime
-    public boolean deleteById(UUID id) {
-        return linkInfoRepository.deleteById(id);
+    public void deleteById(UUID id) {
+        linkInfoRepository.deleteById(id);
+
     }
 }

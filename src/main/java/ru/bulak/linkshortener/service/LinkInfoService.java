@@ -1,17 +1,24 @@
 package ru.bulak.linkshortener.service;
 
 import ru.bulak.linkshortener.dto.CreateShortLinkRequest;
-import ru.bulak.linkshortener.dto.CreateShortLinkResponse;
+import ru.bulak.linkshortener.dto.FilterLinkInfoRequest;
+import ru.bulak.linkshortener.dto.LinkInfoResponse;
+import ru.bulak.linkshortener.dto.UpdateShortLinkRequest;
+import ru.bulak.linkshortener.model.LinkInfo;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface LinkInfoService {
-    CreateShortLinkResponse createLinkInfo(CreateShortLinkRequest createShortLinkRequest);
+    LinkInfoResponse createLinkInfo(CreateShortLinkRequest createShortLinkRequest);
 
-    String getByShortLink(String shortLink);
+    LinkInfo getByShortLink(String shortLink);
 
-    List<CreateShortLinkResponse> getAllShortLinks();
+    List<LinkInfoResponse> getAllShortLinks();
 
-    boolean deleteById(UUID id);
+    void deleteById(UUID id);
+
+    List<LinkInfoResponse> findByFilter(FilterLinkInfoRequest filterLinkInfoRequest);
+
+    LinkInfoResponse updateLinkInfo(UpdateShortLinkRequest updateShortLinkRequest);
 }
