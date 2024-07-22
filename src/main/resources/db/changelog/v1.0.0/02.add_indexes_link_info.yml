@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: "02.add_indexes_link_info.yml"
+      author: "Bul"
+      runInTransaction: false
+      changes:
+          -  sqlFile:
+              dbms:  'all'
+              path:  /db/changelog/v1.0.0/sqlFiles/02.add_indexes_link_info.sql

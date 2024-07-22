@@ -19,7 +19,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
 
     implementation "org.postgresql:postgresql:42.7.3"
-    implementation "org.liquibase:liquibase-core"
+    implementation "org.liquibase:liquibase-core:4.26.0"
 
     implementation 'org.apache.commons:commons-lang3:3.0'
     implementation 'ru.bulak:logging-starter-maven:1.0'
