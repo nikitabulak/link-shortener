@@ -22,8 +22,7 @@ dependencies {
     implementation "org.liquibase:liquibase-core:4.26.0"
 
     implementation 'org.apache.commons:commons-lang3:3.0'
-    implementation 'ru.bulak:logging-starter-maven:1.0'
-    implementation 'ru.bulak:logging-starter-gradle:1.0'
+    implementation 'ru.bulak:logging-starter-gradle:1.5'
     implementation 'org.mapstruct:mapstruct:1.5.5.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
 

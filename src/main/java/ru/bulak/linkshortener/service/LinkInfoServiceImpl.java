@@ -2,13 +2,11 @@ package ru.bulak.linkshortener.service;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import ru.bulak.linkshortener.beanpostprocessor.LogExecutionTime;
 import ru.bulak.linkshortener.dto.*;
 import ru.bulak.linkshortener.exception.NotFoundException;
 import ru.bulak.linkshortener.exception.NotFoundPageException;
@@ -16,6 +14,7 @@ import ru.bulak.linkshortener.mapper.LinkInfoMapper;
 import ru.bulak.linkshortener.model.LinkInfo;
 import ru.bulak.linkshortener.property.LinkShortenerProperty;
 import ru.bulak.linkshortener.repository.LinkInfoRepository;
+import ru.bulak.loggingstartergradle.aspect.LogExecutionTime;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -23,7 +22,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-@Primary
 public class LinkInfoServiceImpl implements LinkInfoService {
     @Autowired
     private LinkInfoRepository linkInfoRepository;
