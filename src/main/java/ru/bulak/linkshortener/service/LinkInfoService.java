@@ -6,6 +6,7 @@ import ru.bulak.linkshortener.dto.LinkInfoResponse;
 import ru.bulak.linkshortener.dto.UpdateShortLinkRequest;
 import ru.bulak.linkshortener.model.LinkInfo;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,4 +22,5 @@ public interface LinkInfoService {
     List<LinkInfoResponse> findByFilter(FilterLinkInfoRequest filterLinkInfoRequest);
 
     LinkInfoResponse updateLinkInfo(UpdateShortLinkRequest updateShortLinkRequest);
+    void deleteNonActiveLinkInfosByUpdateDate(boolean active, ZonedDateTime dateTime);
 }

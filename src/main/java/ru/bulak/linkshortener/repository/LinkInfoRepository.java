@@ -34,6 +34,7 @@ public interface LinkInfoRepository extends JpaRepository<LinkInfo, UUID> {
     Optional<LinkInfo> findByShortLinkAndActiveTrueAndEndTimeIsAfter(String shortLink, ZonedDateTime endTime);
 
     Optional<LinkInfo> findByIdAndActiveTrue(UUID id);
+    void deleteAllByActiveIsAndUpdateTimeBefore(boolean active, ZonedDateTime dateTime);
 
     @Query("""
             UPDATE LinkInfo li

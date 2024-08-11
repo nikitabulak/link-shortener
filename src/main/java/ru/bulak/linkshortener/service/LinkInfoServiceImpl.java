@@ -1,5 +1,6 @@
 package ru.bulak.linkshortener.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class LinkInfoServiceImpl implements LinkInfoService {
     @Autowired
@@ -112,6 +114,11 @@ public class LinkInfoServiceImpl implements LinkInfoService {
     @LogExecutionTime
     public void deleteById(UUID id) {
         linkInfoRepository.deleteById(id);
+    }
 
+    @Override
+    public void deleteNonActiveLinkInfosByUpdateDate(boolean active, ZonedDateTime dateTime) {
+        linkInfoRepository.deleteAllByActiveIsAndUpdateTimeBefore(active, dateTime);
+        log.info("Очищены все LinkInfo c active = {} и updateTime < {}", active, dateTime);
     }
 }

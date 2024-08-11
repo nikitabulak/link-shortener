@@ -9,3 +9,8 @@ logging:
 spring:
   main:
     banner-mode: off
+
+scheduling:
+  cron:
+    delete-link-infos: '0 0 23 * * *'
+#    delete-link-infos: '* * * * * *'
